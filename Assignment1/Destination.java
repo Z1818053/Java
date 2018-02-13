@@ -16,6 +16,8 @@ public class Destination {
         this.startMonth = startMonth;
         this.endMonth = endMonth;
     }
+    
+    public Destination(){}
 
     public void setCity(String newCity) {
         city = newCity;

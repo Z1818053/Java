@@ -15,21 +15,19 @@ public class MileageRedemptionApp {
     public static void main(String[] args){
         // Create Scanner to read terminal input
         Scanner reader = new Scanner(System.in);
-        int miles, ssmiles, month;
+        int miles, month;
         MilesRedeemer redeemer = new MilesRedeemer();
         boolean correct = false;
         // Verify correct terminal input
         while (!correct) {
             try {
-                System.out.printf("Please input your normal miles: ");
+                System.out.printf("Please input your miles: ");
                 miles = reader.nextInt();
-                System.out.printf("Please input your supersaver miles: ");
-                ssmiles = reader.nextInt();
                 System.out.printf("Please input the month of departure (1-12): ");
                 month = reader.nextInt();
                 System.out.printf("\n");
 
-                redeemer = new MilesRedeemer(miles, ssmiles, month);
+                redeemer = new MilesRedeemer(miles, month);
                 correct = true;
             } catch (InputMismatchException e) {
                 System.out.printf("Improper input. Would you like to try again? (Y/n): ");
@@ -71,7 +69,7 @@ public class MileageRedemptionApp {
         for(String s: output) {
             System.out.printf("%s\n",s);
         }
-        System.out.printf("You will have %d miles left and %d Supersaver Miles left.\n", redeemer.getRemainingMiles(), redeemer.getRemainingssMiles());
+        System.out.printf("You will have %d miles left.\n\n", redeemer.getRemainingMiles());
 
         // Verify the purchase
         System.out.printf("Would you like to purchase these flights? (Y/n): ");
@@ -99,3 +97,4 @@ public class MileageRedemptionApp {
         System.out.printf("---------------------------------------------\n\n");
     }
 }
+

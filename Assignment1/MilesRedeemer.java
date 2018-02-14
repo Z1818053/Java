@@ -16,9 +16,7 @@ import java.util.Scanner;
 // Handles file reading and miles transactions.
 public class MilesRedeemer {
     private static int miles;
-    private static int ssmiles;
     private static int mtemp;
-    private static int stemp;
     private static int month;
     private static ArrayList<Destination> dlist;
 
@@ -87,11 +85,6 @@ public class MilesRedeemer {
     */
     public static int getRemainingMiles(){ return miles; }
 
-    /* getRemainingssMiles
-       Returns amount of supersaver miles
-    */
-    public static int getRemainingssMiles(){ return ssmiles; }
-
     /* redeemMiles
        Main drive of mile redemption.
        Calls multiple subfunctions to create arrays and then print them.
@@ -99,12 +92,10 @@ public class MilesRedeemer {
     public ArrayList<String> redeemMiles() {
         // Backup original values
         mtemp = miles;
-        stemp = ssmiles;
 
         // ArrayLists to hold dlist indexes.
         ArrayList<Integer> candidates = new ArrayList<Integer>(dlist.size());
         ArrayList<Integer> selected   = new ArrayList<Integer>(dlist.size());
-        ArrayList<Integer> premium    = new ArrayList<Integer>(dlist.size());
         ArrayList<Integer> upgraded   = new ArrayList<Integer>(dlist.size());
 
 
@@ -113,22 +104,20 @@ public class MilesRedeemer {
             candidates.add(dlist.indexOf(d));
         }
 
-        findDestinations(candidates, selected, premium);
-        findUpgrades(selected, premium, upgraded);
-        return prepareString(selected, premium, upgraded);
+        findDestinations(candidates, selected);
+        findUpgrades(selected, upgraded);
+        return prepareString(selected, upgraded);
     }
 
     /* findDestinations
-       Takes 3 ArrayLists:
+       Takes 2 ArrayLists:
            candidates: possible distances to look at
            selected: fills with destinations chosen to be bought with normal miles
-           premium: fills with destinations chosen to be bought with ss miles
        This algorithm will buy destinations by the farthest distances
        It will prioritize purchases with supersaver miles.
     */
     private static void findDestinations(ArrayList<Integer> candidates,
-                                        ArrayList<Integer> selected,
-                                        ArrayList<Integer> premium)
+                                        ArrayList<Integer> selected)
     {
         int size = candidates.size();
         // Loops through all candidates to order flights.
@@ -148,12 +137,12 @@ public class MilesRedeemer {
                 j++;
             }
 
-            // Buy with ssMiles first
-            if (dlist.get(high).getSsMiles() <= ssmiles && dlist.get(high).getEndMonth() >= month && dlist.get(high).getStartMonth() <= month) {
-                premium.add(high);
-                ssmiles -= dlist.get(high).getSsMiles();
+            // Check if ssmiles work
+            if (dlist.get(high).getEndMonth() >= month && dlist.get(high).getStartMonth() <= month && dlist.get(high).getSsMiles() <= miles) {
+                selected.add(high);
+                miles -= dlist.get(high).getSsMiles();
             }
-            // Buy with normal miles if not enough ssMiles
+            // Buy with normal miles
             else if (dlist.get(high).getNormMile() <= miles) {
                 selected.add(high);
                 miles -= distance;
@@ -172,20 +161,17 @@ public class MilesRedeemer {
        This function will only purchase upgrades with miles and not ssmiles
     */
     private static void findUpgrades(ArrayList<Integer> selected,
-                                    ArrayList<Integer> premium,
                                     ArrayList<Integer> upgraded)
     {
-        // Creates copies to
+        // Creates copy
         ArrayList<Integer> stemp = new ArrayList<Integer>(selected);
-        ArrayList<Integer> ptemp = new ArrayList<Integer>(premium );
 
-        int size = stemp.size()+ptemp.size();
+        int size = stemp.size();
         // Loops through all selected and premium to find largest distance.
         for (int k = 0; k < size; k++) {
             int distance = 0;
             int high = 0;
             int indx = 0;
-            int which = 0;
 
             // Find farthest in stemp
             int j = 0;
@@ -194,47 +180,30 @@ public class MilesRedeemer {
                     distance = dlist.get(i).getNormMile();
                     high = i;
                     indx = j;
-                    which = 0;
-                }
-                j++;
-            }
-            // Find farthest in ptemp
-            j = 0;
-            for (int i : ptemp) {
-                if (dlist.get(i).getNormMile() > distance) {
-                    distance = dlist.get(i).getNormMile();
-                    high = i;
-                    indx = j;
-                    which = 1;
                 }
                 j++;
             }
 
-            // Buy upgrade with normal miles only
+            // Buy upgrade with normal miles
             if (dlist.get(high).getUpgradeMiles() <= miles) {
                 upgraded.add(high);
                 miles -= dlist.get(high).getUpgradeMiles();
             }
 
-            // Remove highest stemp or ptemp
-            if (which == 0) {
-                stemp.remove(indx);
-            }
-            else {
-                ptemp.remove(indx);
-            }
+            // Remove highest stemp
+            stemp.remove(indx);
+
         }
     }
 
     /* prepareString
-       Takes 3 ArrayLists to be printed.
+       Takes 2 ArrayLists to be printed.
        Returns formatted ArrayList<String> ready for printing
     */
     private static ArrayList<String> prepareString(ArrayList<Integer> selected,
-                                                   ArrayList<Integer> premium,
                                                    ArrayList<Integer> upgraded)
     {
-        ArrayList<String> stringOut = new ArrayList<String>(selected.size()+premium.size());
+        ArrayList<String> stringOut = new ArrayList<String>(selected.size());
 
         // Prepare string for all selected
         boolean upgrade = false;
@@ -254,26 +223,6 @@ public class MilesRedeemer {
                 stringOut.add("A trip to " + dlist.get(i).getCity() + ", business class.");
             }
         }
-
-        // Prepare string for all premium
-        upgrade = false;
-        for (int i: premium) {
-            for (int j: upgraded) {
-                // Check if upgraded
-                if (j == i) {
-                    upgrade = true;
-                    break;
-                }
-            }
-
-            if (upgrade) {
-                stringOut.add("A trip to " + dlist.get(i).getCity() + ", first class.");
-            }
-            else {
-                stringOut.add("A trip to " + dlist.get(i).getCity() + ", business class.");
-            }
-        }
-
         return stringOut;
     }
 
@@ -282,22 +231,18 @@ public class MilesRedeemer {
     */
     public static void refund() {
         miles = mtemp;
-        ssmiles = stemp;
     }
 
     // Constructor
     // Assigns local variables to those given.
-    public MilesRedeemer(int miles, int ssmiles, int month) {
+    public MilesRedeemer(int miles, int month) {
         this.miles = miles;
-        this.ssmiles = ssmiles;
         this.month = month;
     }
 
     // Default Constructor
     public MilesRedeemer() {
         this.miles = 0;
-        this.ssmiles = 0;
         this.month = 0;
     }
 }
-

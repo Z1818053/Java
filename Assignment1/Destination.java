@@ -1,11 +1,20 @@
+/*
+Matt Rycraft
+Tommy Franczak
+2/11/18
+Assingment 1
+*/
+
+// Destination Class
+// Handles information about a destination and its miles.
 public class Destination {
 
-    public String city;
-    public int normMile;
-    public int ssMiles;
-    public int upgradeMiles;
-    public int startMonth;
-    public int endMonth;
+    private String city;
+    private int normMile;
+    private int ssMiles;
+    private int upgradeMiles;
+    private int startMonth;
+    private int endMonth;
 
 
     public Destination(String city, int normMile, int ssMiles, int upgradeMiles, int startMonth, int endMonth) {
@@ -16,8 +25,10 @@ public class Destination {
         this.startMonth = startMonth;
         this.endMonth = endMonth;
     }
-    
+
     public Destination(){}
+
+    public String getCity() { return city; }
 
     public void setCity(String newCity) {
         city = newCity;
@@ -63,4 +74,3 @@ public class Destination {
         endMonth = newEndMonth;
     }
 }
-

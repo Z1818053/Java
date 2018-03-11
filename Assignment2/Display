@@ -1,0 +1,114 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+
+
+public class Display extends JFrame {
+    JButton btn;
+    JLabel lbl1;    //label for entering miles
+    JLabel lbl2;    //label for month scroll pane
+    JLabel lbl3;    //label for required miles
+    JLabel lbl4;    //label for miles for upgrading
+    JLabel lbl5;    //label for miles supersaver
+    JLabel lbl6;    //label for months supersaver
+    JPanel panel1;
+    JPanel panel2;
+    JTextField miles;
+    JScrollPane month;
+    JTextArea city;
+
+    public Display() {
+        //create title and panels
+        setTitle("Airline Mileage Redemption");
+        panel1 = new JPanel();
+        panel2 = new JPanel();
+
+        //create border objects
+        TitledBorder border1 = new TitledBorder("Reedem Tickets");
+        TitledBorder border2 = new TitledBorder("List of Destination Cities");
+
+        //set border title justification and position
+        border1.setTitleJustification(TitledBorder.LEFT);
+        border1.setTitlePosition(TitledBorder.TOP);
+        border2.setTitleJustification(TitledBorder.LEFT);
+        border2.setTitlePosition(TitledBorder.TOP);
+
+        //text field for user input
+        miles = new JTextField();
+        miles.setPreferredSize(new Dimension(100,25));
+        //scroll pane for depature months
+        month = new JScrollPane();
+        month.setPreferredSize(new Dimension(100,25));
+        //list of cities that can be flown too
+        city = new JTextArea();
+        city.setPreferredSize(new Dimension(280,150));
+
+        //create button
+        btn = new JButton();
+        btn.setText("Redeem Tickets >>>");
+        btn.setToolTipText("Redeem Miles");
+
+        //create labels
+        lbl1 = new JLabel();
+        lbl2 = new JLabel();
+        lbl3 = new JLabel();
+        lbl4 = new JLabel();
+        lbl5 = new JLabel();
+        lbl6 = new JLabel();
+        lbl1.setText("Your Accumulated Miles");
+        lbl2.setText("Month of Depature");
+        lbl3.setText("Required Miles");
+        lbl4.setText("Miles for Upgrading");
+        lbl5.setText("Miles for SuperSaver");
+        lbl6.setText("Months for SuperSaver");
+
+        setSize(960, 350);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //set size
+        panel1.setPreferredSize(new Dimension(500,800));
+        panel2.setPreferredSize(new Dimension(300,800));
+
+        //set background colors
+        panel1.setBackground(Color.CYAN);
+        panel2.setBackground(Color.DARK_GRAY);
+
+        //set borders
+        panel1.setBorder(border1);
+        panel2.setBorder(border2);
+
+        //add features to panel 1
+        panel1.add(lbl1);
+        panel1.add(miles);
+        panel1.add(lbl2);
+        panel1.add(month);
+        panel1.add(btn);
+
+        //add features to panel 2
+        panel2.add(city);
+        panel2.add(lbl3);
+        panel2.add(lbl4);
+        panel2.add(lbl5);
+        panel2.add(lbl6);
+
+
+        add(panel1, BorderLayout.CENTER);
+        add(panel2, BorderLayout.WEST);
+
+
+        setVisible(true);
+
+    }
+
+
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Display();
+            }
+        });
+
+    }
+
+}

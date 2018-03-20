@@ -254,7 +254,7 @@ public class Display extends JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
 
 
         // Construct MilesRedeemer object.
@@ -263,7 +263,7 @@ public class Display extends JFrame {
         try { // Open file and read it
             file = new File(args[0]);
             fileScanner = new Scanner(file);
-            MilesRedeemer.readDestinations(fileScanner);
+            redeemer.readDestinations(fileScanner);
         } catch (FileNotFoundException e) {
             System.out.printf("File not found. Program exiting...\n");
             System.exit(2);

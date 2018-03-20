@@ -12,8 +12,11 @@ import javax.swing.event.ListSelectionListener;
 
 public class Display extends JFrame {
 
-    MilesRedeemer redeemer = new MilesRedeemer();
-
+    static MilesRedeemer redeemer = new MilesRedeemer();
+    Destination des = new Destination();
+    ArrayList<Destination> destinations;
+    static File file;
+    static Scanner fileScanner;
     /**
      * Creates new form Display
      */
@@ -254,7 +257,7 @@ public class Display extends JFrame {
     /**
      * @param args the command line arguments
      */
-    public void main(String args[]) {
+    public static void main(String args[]) {
 
 
         // Construct MilesRedeemer object.

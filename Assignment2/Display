@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -13,15 +14,16 @@ import javax.swing.event.ListSelectionListener;
 public class Display extends JFrame {
 
     static MilesRedeemer redeemer = new MilesRedeemer();
-    Destination des = new Destination();
+    //Destination des = new Destination();
     ArrayList<Destination> destinations;
     static File file;
     static Scanner fileScanner;
-    /**
-     * Creates new form Display
-     */
+    
+    
+    //Creates new form Display
     public Display() {
         initComponents();
+        
     }
 
 
@@ -47,35 +49,35 @@ public class Display extends JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+
         //panels
-        panel1 = new JPanel();
-        panel2 = new JPanel();
+        CityPanel = new JPanel();
+        RedeemPanel = new JPanel();
         //Redeem miles button
-        jButton1 = new JButton("Redeem Tickets");
+        RedeemButton = new JButton("Redeem Tickets");
         //Labels
-        label1 = new JLabel(); // broken label that I accidently added as a "title" to the panel before the titledborder
-        label2 = new JLabel("Accumulated Miles");
-        label3 = new JLabel("Month of Depature");
-        label4 = new JLabel("Your Remaining Miles");
-        label5 = new JLabel(); // broken label that I accidently added as a "title" to the panel before the titledborder
-        label6 = new JLabel("Required Miles");
-        label7 = new JLabel("Miles for Upgrading");
-        label8 = new JLabel("Miles for SuperSaver");
-        label9 = new JLabel("Months for SuperSaver");
+        AccMiles = new JLabel("Accumulated Miles");
+        DepatureMon = new JLabel("Month of Depature");
+        RemMiles = new JLabel("Your Remaining Miles");
+        ReqMiles = new JLabel("Required Miles");
+        UpgMiles = new JLabel("Miles for Upgrading");
+        SuperMiles = new JLabel("Miles for SuperSaver");
+        SuperMonths = new JLabel("Months for SuperSaver");
         //Textfields and scrollpanes
-        jTextField1 = new JTextField();
-        jTextField3 = new JTextField();
-        jTextField4 = new JTextField();
-        jTextField2 = new JTextField();
-        jTextField5 = new JTextField();
-        jTextField6 = new JTextField();
-        jTextField7 = new JTextField();
-        final JList cities = new JList(redeemer.getCityNames());
+        AccMilesTF = new JTextField();
+        TicketsTF = new JTextField();
+        RemMilesTF = new JTextField();
+        ReqMilesTF = new JTextField();
+        UpgMilesTF = new JTextField();
+        SuperMilesTF = new JTextField();
+        SuperMonthsTF = new JTextField();
+        final JList cityNames = new JList(redeemer.getCityNames());
 
         SpinnerModel model1 = new SpinnerListModel(getMonthStrings());
-        jSpinner1 = new JSpinner(model1);
+        Months = new JSpinner(model1);
 
-        jScrollPane1 = new JScrollPane(cities);
+        Cities = new JScrollPane(cityNames);
+
 
 
         //create border objects
@@ -86,7 +88,7 @@ public class Display extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Redeem Miles");
 
-        panel1.setBackground(new java.awt.Color(51, 102, 255));
+        CityPanel.setBackground(new java.awt.Color(51, 102, 255));
 
 
         //set border title justification and position
@@ -97,124 +99,115 @@ public class Display extends JFrame {
 
 
         //set borders
-        panel1.setBorder(border1);
-        panel2.setBorder(border2);
+        CityPanel.setBorder(border1);
+        RedeemPanel.setBorder(border2);
 
-        jTextField4.setPreferredSize(new Dimension(100,25));
+        RemMilesTF.setPreferredSize(new Dimension(100,25));
 
-        GroupLayout panel1Layout = new GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-                panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(label1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(panel1Layout.createSequentialGroup()
+        GroupLayout CityPanelLayout = new GroupLayout(CityPanel);
+        CityPanel.setLayout(CityPanelLayout);
+        CityPanelLayout.setHorizontalGroup(
+                CityPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(CityPanelLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jTextField3)
+                                .addComponent(TicketsTF)
                                 .addContainerGap())
-                        .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(CityPanelLayout.createSequentialGroup()
                                 .addGap(177, 177, 177)
-                                .addComponent(label4)
+                                .addComponent(RemMiles)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(RemMilesTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, CityPanelLayout.createSequentialGroup()
                                 .addGap(122, 200, Short.MAX_VALUE)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(label2)
-                                                        .addComponent(label3))
+                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(GroupLayout.Alignment.TRAILING, CityPanelLayout.createSequentialGroup()
+                                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(AccMiles)
+                                                        .addComponent(DepatureMon))
                                                 .addGap(18, 18, 18)
-                                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jSpinner1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(AccMilesTF, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(Months, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
                                                 .addGap(187, 187, 187))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                                .addComponent(jButton1)
+                                        .addGroup(GroupLayout.Alignment.TRAILING, CityPanelLayout.createSequentialGroup()
+                                                .addComponent(RedeemButton)
                                                 .addGap(237, 237, 237))))
         );
-        panel1Layout.setVerticalGroup(
-                panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(label1)
-                                .addGap(7, 7, 7)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(label2)
-                                        .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        CityPanelLayout.setVerticalGroup(
+                CityPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(CityPanelLayout.createSequentialGroup()
+                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(AccMiles)
+                                        .addComponent(AccMilesTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(label3)
-                                        .addComponent(jSpinner1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(DepatureMon)
+                                        .addComponent(Months, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
                                 .addGap(30, 30, 30)
-                                .addComponent(jButton1)
+                                .addComponent(RedeemButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TicketsTF, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(label4)
-                                        .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(CityPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(RemMiles)
+                                        .addComponent(RemMilesTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18))
         );
 
-        panel2.setBackground(new java.awt.Color(153, 255, 255));
+        RedeemPanel.setBackground(new java.awt.Color(153, 255, 255));
 
 
-        GroupLayout panel2Layout = new GroupLayout(panel2);
-        panel2.setLayout(panel2Layout);
-        panel2Layout.setHorizontalGroup(
-                panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(panel2Layout.createSequentialGroup()
-                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1)
-                                        .addGroup(panel2Layout.createSequentialGroup()
+        GroupLayout RedeemPanelLayout = new GroupLayout(RedeemPanel);
+        RedeemPanel.setLayout(RedeemPanelLayout);
+        RedeemPanelLayout.setHorizontalGroup(
+                RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(RedeemPanelLayout.createSequentialGroup()
+                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(Cities)
+                                        .addGroup(RedeemPanelLayout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addGroup(panel2Layout.createSequentialGroup()
-                                                                .addComponent(label5)
-                                                                .addGap(0, 0, Short.MAX_VALUE))
-                                                        .addGroup(panel2Layout.createSequentialGroup()
-                                                                .addComponent(label6, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addGroup(RedeemPanelLayout.createSequentialGroup())
+                                                        .addGroup(RedeemPanelLayout.createSequentialGroup()
+                                                                .addComponent(ReqMiles, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                                                                .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(label7)
-                                                                        .addComponent(label8)
-                                                                        .addComponent(label9))
+                                                                .addComponent(ReqMilesTF, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(GroupLayout.Alignment.TRAILING, RedeemPanelLayout.createSequentialGroup()
+                                                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(UpgMiles)
+                                                                        .addComponent(SuperMiles)
+                                                                        .addComponent(SuperMonths))
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(jTextField5, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                                                        .addComponent(jTextField6)
-                                                                        .addComponent(jTextField7, GroupLayout.Alignment.TRAILING))))))
+                                                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(UpgMilesTF, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                                                        .addComponent(SuperMilesTF)
+                                                                        .addComponent(SuperMonthsTF, GroupLayout.Alignment.TRAILING))))))
                                 .addContainerGap())
         );
-        panel2Layout.setVerticalGroup(
-                panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(panel2Layout.createSequentialGroup()
-                                                .addComponent(label5)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane1)
+        RedeemPanelLayout.setVerticalGroup(
+                RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, RedeemPanelLayout.createSequentialGroup()
+                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(RedeemPanelLayout.createSequentialGroup()
+                                                .addComponent(Cities)
                                                 .addGap(18, 18, 18)
-                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(label6))
+                                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(ReqMilesTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(ReqMiles))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panel2Layout.createSequentialGroup()
+                                                .addComponent(UpgMilesTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(RedeemPanelLayout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(label7)))
+                                                .addComponent(UpgMiles)))
                                 .addGap(18, 18, 18)
-                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField6, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(label8, GroupLayout.Alignment.TRAILING))
+                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(SuperMilesTF, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(SuperMiles, GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(label9))
+                                .addGroup(RedeemPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addComponent(SuperMonthsTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(SuperMonths))
                                 .addGap(11, 11, 11))
         );
 
@@ -223,46 +216,54 @@ public class Display extends JFrame {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(RedeemPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CityPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CityPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RedeemPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jButton1.addActionListener(new ActionListener() {
+        RedeemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int miles = Integer.parseInt(jTextField1.getText());
-                Object month = jSpinner1.getValue();
+                int miles = Integer.parseInt(AccMilesTF.getText());
+                Object month = Months.getValue();
 
 
             }
         });
 
-       cities.addListSelectionListener(new ListSelectionListener() {
-           @Override
-           public void valueChanged(ListSelectionEvent listSelectionEvent) {
-               Object destination = cities.getSelectedValue();
-           }
-       });
+        cityNames.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Destination des;
+
+                if(!e.getValueIsAdjusting()){
+                    //des = redeemer.findDestination(cityNames.getSelectedValue());
+                    String start;
+                    String end;
+
+
+                }
+            }
+        });
 
         pack();
     }// </editor-fold>
+
+
+
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-
-        // Construct MilesRedeemer object.
-        File file;
-        Scanner fileScanner;
         try { // Open file and read it
             file = new File(args[0]);
             fileScanner = new Scanner(file);
@@ -309,27 +310,25 @@ public class Display extends JFrame {
 
 
     // Variables declaration - do not modify
-    private JButton jButton1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
-    private JLabel label5;
-    private JLabel label6;
-    private JLabel label7;
-    private JLabel label8;
-    private JLabel label9;
-    private JPanel panel1;
-    private JPanel panel2;
-    private JSpinner jSpinner1;
-    private JScrollPane jScrollPane1;
-    private JTextField jTextField1;
-    private JTextField jTextField2;
-    private JTextField jTextField3;
-    private JTextField jTextField4;
-    private JTextField jTextField5;
-    private JTextField jTextField6;
-    private JTextField jTextField7;
+    private JButton RedeemButton;
+    private JLabel AccMiles;
+    private JLabel DepatureMon;
+    private JLabel RemMiles;
+    private JLabel ReqMiles;
+    private JLabel UpgMiles;
+    private JLabel SuperMiles;
+    private JLabel SuperMonths;
+    private JPanel CityPanel;
+    private JPanel RedeemPanel;
+    private JSpinner Months;
+    private JScrollPane Cities;
+    private JTextField AccMilesTF;
+    private JTextField ReqMilesTF;
+    private JTextField TicketsTF;
+    private JTextField RemMilesTF;
+    private JTextField UpgMilesTF;
+    private JTextField SuperMilesTF;
+    private JTextField SuperMonthsTF;
 
     // End of variables declaration
 }

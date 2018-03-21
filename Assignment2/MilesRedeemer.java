@@ -18,7 +18,8 @@ public class MilesRedeemer {
     private static int miles;
     private static int mtemp;
     private static int month;
-    private static ArrayList<Destination> dlist;
+    public static int size;
+    public static ArrayList<Destination> dlist;
 
     /* readDestinations
        Takes Scanner object with open file.
@@ -62,6 +63,8 @@ public class MilesRedeemer {
             dlist.get(i).setStartMonth(Integer.valueOf(parts[4]));
             dlist.get(i).setEndMonth(Integer.valueOf(parts[5]));
         }
+
+        size = dlist.size();
     }
 
     /* readDestinations
@@ -111,7 +114,7 @@ public class MilesRedeemer {
 
     public Destination findDestination(String cityName){
         Destination city = new Destination();
-        for(int k = 0; k < 6; k++) {
+        for(int k = 0; k < dlist.size(); k++) {
             if(cityName.equals(city.getCity())){
                 city.getNormMile();
                 city.getSsMiles();
@@ -247,6 +250,21 @@ public class MilesRedeemer {
     */
     public static void refund() {
         miles = mtemp;
+    }
+
+    /* setMiles
+       Simply sets the miles to the given value
+    */
+    public static void setMiles( int imiles ) {
+        miles = imiles;
+        mtemp = imiles;
+    }
+
+    /* setMiles
+    Simply sets the month to the given value
+    */
+    public static void setMonth( int Month ) {
+        month = Month;
     }
 
     // Constructor

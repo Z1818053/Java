@@ -1,9 +1,14 @@
-/*
-Matt Rycraft - z1818053
-Tommy Franczak - z1796882
-2/11/18
-Assingment 1
-*/
+/**********************************
+ * Matt Rycraft - z1818053
+ * Tommy Franczak - z1796882
+ * 3/19/18
+ *  Assingment 2
+ *  (Also used in Assignment 1)
+ *
+ * Destination class will hold the data read from
+ * the miles.txt file that is passed in as a command
+ * line argument
+ *************************************/
 
 // Destination Class
 // Handles information about a destination and its miles.

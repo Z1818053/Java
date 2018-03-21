@@ -1,9 +1,13 @@
-/*
-Matt Rycraft - z1818053
-Tommy Franczak - z1796882
-2/11/18
-Assingment 1
-*/
+/**********************************
+ * Matt Rycraft - z1818053
+ * Tommy Franczak - z1796882
+ * 3/19/18
+ *  Assingment 2
+ *  (Also used in Assignment 1)
+ *
+ *  MilesRedeemer class allows us to handle transactions
+ *  with miles along with getting the data and using it
+*************************************/
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +22,8 @@ public class MilesRedeemer {
     private static int miles;
     private static int mtemp;
     private static int month;
-    private static ArrayList<Destination> dlist;
+    public static int size;
+    public static ArrayList<Destination> dlist;
 
     /* readDestinations
        Takes Scanner object with open file.
@@ -62,6 +67,8 @@ public class MilesRedeemer {
             dlist.get(i).setStartMonth(Integer.valueOf(parts[4]));
             dlist.get(i).setEndMonth(Integer.valueOf(parts[5]));
         }
+
+        size = dlist.size();
     }
 
     /* readDestinations
@@ -107,22 +114,6 @@ public class MilesRedeemer {
         findDestinations(candidates, selected);
         findUpgrades(selected, upgraded);
         return prepareString(selected, upgraded);
-    }
-
-    public Destination findDestination(String cityName){
-        Destination city = new Destination();
-        for(int k = 0; k < 6; k++) {
-            if(cityName.equals(city.getCity())){
-                city.getNormMile();
-                city.getSsMiles();
-                city.getUpgradeMiles();
-                city.getStartMonth();
-                city.getEndMonth();
-            }
-        }
-
-        return city;
-
     }
 
     /* findDestinations
@@ -247,6 +238,21 @@ public class MilesRedeemer {
     */
     public static void refund() {
         miles = mtemp;
+    }
+
+    /* setMiles
+       Simply sets the miles to the given value
+    */
+    public static void setMiles( int imiles ) {
+        miles = imiles;
+        mtemp = imiles;
+    }
+
+    /* setMiles
+    Simply sets the month to the given value
+    */
+    public static void setMonth( int Month ) {
+        month = Month;
     }
 
     // Constructor

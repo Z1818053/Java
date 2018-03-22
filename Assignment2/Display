@@ -252,6 +252,7 @@ public class Display extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int miles;
+                boolean validInput = true;
                 try {
                     // Try to parse number of miles
                     miles = Integer.parseInt(AccMilesTF.getText());
@@ -259,6 +260,9 @@ public class Display extends JFrame {
                 }
                 catch (NumberFormatException ex) {
                     miles = 0;
+                    //if a numberformatexception is thrown set validInput to false
+                    //to trigger error message
+                    validInput = false;
                 }
                 // Get month out of text field
                 String monthString = Months.getValue().toString();
@@ -306,7 +310,6 @@ public class Display extends JFrame {
                         month = 1;
                         break;
                 }
-
                 redeemer.setMiles(miles);
                 redeemer.setMonth(month);
                 // redeemMiles and take the string output into output
@@ -317,10 +320,29 @@ public class Display extends JFrame {
                     outputString = new String(outputString + output.get(0)+ "\n\r");
                     output.remove(0);
                 }
-                // Print the formatted output
-                TicketsTF.setText(outputString);
-                // Print the remaining miles
-                RemMilesTF.setText("" + redeemer.getRemainingMiles());
+                //Check if user entered a number
+                // if validinput is false send out erroe msg
+                if (validInput == false){
+                    TicketsTF.setText("That is not a valid number");
+                    // Print the remaining miles
+                    RemMilesTF.setText("");
+                }
+                //Check if they entered enough miles to buy any tickets
+                //Remaining miles is the exact amount entered
+                else if (miles < 10000){
+                    // Print the formatted output
+                    TicketsTF.setText("You do not have enough miles");
+                    // Print the remaining miles
+                    RemMilesTF.setText("" + miles);
+                }
+                else {
+                    //IF input is correct and enough to buy tickets output
+                    //updated information
+                    // Print the formatted output
+                    TicketsTF.setText(outputString);
+                    // Print the remaining miles
+                    RemMilesTF.setText("" + redeemer.getRemainingMiles());
+                }
             }
         });
 
@@ -355,6 +377,18 @@ public class Display extends JFrame {
         pack();
     }// </editor-fold>
 
+    public boolean numberOrNot(String input)
+    {
+        try
+        {
+            Integer.parseInt(input);
+        }
+        catch(NumberFormatException ex)
+        {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments

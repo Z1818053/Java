@@ -22,7 +22,7 @@ public class xmlDownloaderPanel extends JPanel {
         xmlPanel.setPreferredSize(new Dimension(800,500));
         albumPane.setPreferredSize(new Dimension(800,500));
 
-
+        add.(xmlPanel);
         //add button and jtextarea
         xmlPanel.add(getAlbums,BorderLayout.CENTER);
         xmlPanel.add(albumPane,BorderLayout.SOUTH);

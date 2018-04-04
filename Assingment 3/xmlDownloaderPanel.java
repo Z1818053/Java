@@ -110,3 +110,4 @@ public class xmlDownloaderPanel extends JPanel implements ActionListener, AlbumD
     private String feedType = "new-music";
     private int resultLimit = 10;
     private boolean explicit = true;
+}

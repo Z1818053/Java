@@ -1,3 +1,14 @@
+/***************************
+ * Matt Rycraft - z1818053
+ * Tommy Franczak - z1796882
+ *
+ * CSCI 470
+ *
+ * Assignment 4
+ *
+ * Creates the bouncing calls and causes them to move 
+ */
+
 import java.awt.*;
 
 // Class: Ball
